@@ -13,6 +13,21 @@
     <script src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
 	<link rel="stylesheet" href="css/styles_for_script.css"> 
+	<script>
+		$(document).ready(function(){
+				//Скрыть PopUp при загрузке страницы    
+			PopUpHide();
+		});
+		//Функция отображения PopUp
+		function PopUpShow(password){
+			$("#popup1").show();
+			
+		}
+		//Функция скрытия PopUp
+				function PopUpHide(){
+        $("#popup1").hide();
+    }
+</script>
 	<script type="text/javascript">     
 	// GLOBAL CONSTANTS /////////////////
 	/////////////////////////////////////
@@ -78,7 +93,7 @@
 				}
 			}
 			console.log(password);
-			alert('suka hui'+password);
+			PopUpShow(password);
 		}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +166,6 @@
 					}
 					
 					if (width == 100){ 
-						$('#generate').show();	
 						printMass();
 					}
 					
@@ -166,7 +180,6 @@
 				globMass.push(y);
 			};
 	 
-		
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,13 +209,7 @@
         </form>
       </div>
       <div id="more_entropy">
-        Move your mouse around
-		<div class="progress">
-          <div style="width: 0"></div>
-        </div>
-        <div class="reminder">
-          Um, you're not quite done moving your mouse yet.
-        </div>
+        Move your mouse around and get password for you account 
       </div>
        <center>
 	   <div id="myProgress">
@@ -212,8 +219,16 @@
 	   </div>
        </center>
  	    
-		<button id="generate_button" onclick="generatePassword()"> Generate password!</button>
+	   <button id="generate_button" onclick="generatePassword()"> Generate password!</button>
 		
+
+		<div class="b-popup" id="popup1">
+		<div class="b-popup-content">
+			Text in Popup
+		<a href="javascript:PopUpHide()">Hide popup</a>
+		</div>
+		</div>
+	  
 	  <p>
         Mouseware can now optionally use the diceware word list.
         <a class="enable_diceware">Enable</a> secure diceware password
