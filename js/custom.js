@@ -27,14 +27,12 @@
 					if (width >= 100) {
 					
 					} else {
-						console.log(width);
 						width++; 
 						elem.style.width = width + '%'; 
 						document.getElementById("label").innerHTML = width * 1 + '%';
 				}
 		}
 		function generatePassword(){
-			console.log('asdasd');
 			console.log(globMass);
 			//Getting of length of the password
 			// min length of the password is 8 symbols
@@ -97,7 +95,7 @@
 				newPassMass[rand1] = newPassMass[rand2];
 				newPassMass[rand2] = replacedSymbol;
 			}
-		console.log(newPassMass);
+		//console.log(newPassMass);
 		return newPassMass.join("");
 		}
 	
@@ -140,7 +138,7 @@
 					var x = event.clientX,
 						y = event.clientY;
 					addPoints (x,y);
-					console.log(x,y);	
+					//console.log(x,y);	
 					
 					if (step == bits ){
 						step = 0;
