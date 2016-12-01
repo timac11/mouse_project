@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouseware Secure Password Generator | Fusionbox</title>
+    <meta name="description" content="Mouseware is a strong and secure password generator that uses your mouse movements to generate easy-to-remember passwords." />
+    <meta name="keywords" content="strong password generator, secure password generator" />
+    <link rel="icon" href="favicon.ico"  type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico"  type="image/x-icon">
+    <script src="js/crypto-sha256.js"></script>
+    <script src="js/random.js"></script>
+    <script src="js/wordlist.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+	<link rel="stylesheet" href="css/styles_for_script.css"> 
+	<script type="text/javascript">     
+	// GLOBAL CONSTANTS /////////////////
+	/////////////////////////////////////
+	var  globMass = [],	// mssiv of points
+		 massSize = 2000, // size of massiv
+		 passLength = 95,
+		 smallSighns = 'abcdefghijklmnopqrstuvwxyz',
+		 bigSighns = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+		 numbers = '1234567890',
+		 specSighns = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~';
+
+	   function move(width) {
+			var elem = document.getElementById("myBar"); 
+					if (width >= 100) {
+					
+					} else {
+						console.log(width);
+						width++; 
+						elem.style.width = width + '%'; 
+						document.getElementById("label").innerHTML = width * 1 + '%';
+				}
+		}
+		function generatePassword(){
+			console.log('asdasd');
+			console.log(globMass);
+			//Getting of length of the password
+			// min length of the password is 8 symbols
+			var pwlen = 16,
+				symbols = '',
+			    password,
+				symbolsMass,
+				newSymbol = '',
+				passMas = [],
+				n = 0,
+				genpas_spec_symbols = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~';
+			//Determination of options 
+			/*if($('#az').attr('checked'))*/ symbols = symbols + smallSighns;
+			/*if($('#az2').attr('checked'))*/ symbols = symbols + bigSighns;
+			/*if($('#n09').attr('checked'))*/ symbols = symbols + numbers;
+			/*if($('#schr').attr('checked'))*/ symbols = symbols + specSighns;
+			//Replacing of some sequences
+			//if($('#skipamb').attr('checked')) {
+			//	symbols = symbols.replace(new RegExp('[B8G6I1l\|0OQDS5Z2]','g'),'');
+			//}
+			// generation of massiv of symbols
+			symbolsMass = symbols.split("");
+			// random string of symbols
+			symbols = replacingSymbolsInString(symbolsMass);
+			// generationPassword
+			password = '';
+			while (n<16){
+				if (n == 0){
+					password = symbols.charAt(generateSymbol());
+					n++;
+				}
+				else {
+					symbol = password.charAt(n-1);
+					newSymbol = symbols.charAt(generateSymbol());
+					if (filtering(symbol,newSymbol)){
+						password = password + newSymbol;
+						n++;
+					}
+				}
+			}
+			console.log(password);
+			alert('suka hui'+password);
+		}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////	
+		
+		function replacingSymbolsInString(symbolsMass){
+			// replacing of symbols in the string of formulating password
+			var rand1,rand2,
+				replacedSymbol,
+				min = 0,
+				max = passLength,
+				newPassMass = symbolsMass;
+			for (i=0; i<passLength;i++){
+				rand1 = (Math.floor(Math.random() * (max - min )) + min)%passLength;
+				rand2 = (Math.floor(Math.random() * (max - min )) + min)%passLength;
+				// replacing 
+				replacedSymbol = newPassMass[rand1];
+				newPassMass[rand1] = newPassMass[rand2];
+				newPassMass[rand2] = replacedSymbol;
+			}
+		console.log(newPassMass);
+		return newPassMass.join("");
+		}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////	
+	////// filtration of similar symbols/////////////////////////////////////////////////////////////// 
+		
+		function filtering (firstSymbol, secondSymbol){
+			// finding similar simbols near and
+			// excluding pairs from string 
+			// search overlaps
+			if  ((smallSighns.indexOf(firstSymbol) != -1) && (smallSighns.indexOf(secondSymbol) != -1) ) return false;
+			if  ((bigSighns.indexOf(firstSymbol) != -1) && (bigSighns.indexOf(secondSymbol) != -1) ) return false;
+			if  ((numbers.indexOf(firstSymbol) != -1) && (numbers.indexOf(secondSymbol) != -1) ) return false;
+			if  ((specSighns.indexOf(firstSymbol) != -1) &&  (specSighns.indexOf(secondSymbol) != -1)) return false;
+		 return true;	
+		}
+	
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		function generateSymbol(){
+			var symbol = '',
+			passLength = 95,
+			number = 0 ;
+			for (i=0;i<100;i++){
+				number = (number + globMass[Math.floor(Math.random() * (2000))] )%passLength;
+			}
+			return number;
+		} 
+    
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////	
+		(function(exports,$) {
+			//var globMass = [],  
+			bits = 10, step = 0, width = 0;
+	
+			$(document).on('mousemove', function(event) {
+					step = step + 1;
+					var x = event.clientX,
+						y = event.clientY;
+					addPoints (x,y);
+					console.log(x,y);	
+					
+					if (step == bits ){
+						step = 0;
+						width ++;
+						move(width);
+					}
+					
+					if (width == 100){ 
+						$('#generate').show();	
+						printMass();
+					}
+					
+            });
+
+			function printMass() {
+				console.log (globMass);
+			}
+		
+			function addPoints (x,y){
+				globMass.push(x);
+				globMass.push(y);
+			};
+	 
+		
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		
+	})(window, jQuery);
+	</script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:700,400" rel="stylesheet" type="text/css">
+
+  </head>
+  <body>
+    <div id="container">
+      <div id="generate" style="display: none;">
+        <div class="password"></div>
+        <div class="entropy"></div>
+        <button id="generate_button">Generate</button>
+        <div class="toggleOptions">
+          <a id="toggle_options_button">Show Options</a>
+        </div>
+        <form id="options" style="display: none;">
+          <label><input type="checkbox" name="use_dirty">Include dirty words?</label>
+          <label><input type="checkbox" name="use_number">Include a number?</label>
+          <label><input type="checkbox" name="use_symbol">Include a symbol?</label>
+          <label><input type="checkbox" name="use_more_words">Include more words?</label>
+          <label><input type="checkbox" name="use_spaces" checked="checked">Include spaces between words?</label>
+          <label><input type="checkbox" name="diceware">Use the diceware wordlist</label>
+        </form>
+      </div>
+      <div id="more_entropy">
+        Move your mouse around
+		<div class="progress">
+          <div style="width: 0"></div>
+        </div>
+        <div class="reminder">
+          Um, you're not quite done moving your mouse yet.
+        </div>
+      </div>
+       <center>
+	   <div id="myProgress">
+			<div id="myBar">
+			<div id="label">0%</div>
+			</div>
+	   </div>
+       </center>
+ 	    
+		<button id="generate_button" onclick="generatePassword()"> Generate password!</button>
+		
+	  <p>
+        Mouseware can now optionally use the diceware word list.
+        <a class="enable_diceware">Enable</a> secure diceware password
+        generation.
+      </p>
+    </div>
+    <footer>
+    </footer>
+  </body>
+</html>
