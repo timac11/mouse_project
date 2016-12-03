@@ -19,51 +19,52 @@
 
   </head>
   <body>
+<div style = "width: 700px; height: 300px; text-align: center">
     <div id="container">
-      <div id="generate" style="display: none;">
+      <div id="generate">
         <div class="password"></div>
         <div class="entropy"></div>
-        <button id="generate_button">Generate</button>
-        <div class="toggleOptions">
+        
+        <!--
+		<div class="toggleOptions">
           <a id="toggle_options_button">Show Options</a>
         </div>
-        <form id="options" style="display: none;">
-          <label><input type="checkbox" name="use_dirty">Include dirty words?</label>
-          <label><input type="checkbox" name="use_number">Include a number?</label>
-          <label><input type="checkbox" name="use_symbol">Include a symbol?</label>
-          <label><input type="checkbox" name="use_more_words">Include more words?</label>
-          <label><input type="checkbox" name="use_spaces" checked="checked">Include spaces between words?</label>
-          <label><input type="checkbox" name="diceware">Use the diceware wordlist</label>
+        -->
+		<center>
+		<form id="options">
+		  <div>
+		  Options
+		  </div>
+		  <br>
+		  <div style="margin-left: 40px">
+		  <label><input id = 'numbers' type="checkbox" name="use_number">Include a numbers?</label>
+          <label><input id = 'symbols' type="checkbox" name="use_symbol">Include specializes symbols?</label>
+		  </div>
+		<br></br>
+	<center><label><center>Password length</center></label><input class = 'pass' id = 'passLength'  name="passL" value = '16'></center>
         </form>
-      </div>
+      <center>
+	  </div>
       <div id="more_entropy">
         Move your mouse around and get password for you account 
       </div>
-       <center>
+       <br>
+	   <center>
 	   <div id="myProgress">
 			<div id="myBar">
 			<div id="label">0%</div>
 			</div>
 	   </div>
        </center>
- 	    
-	   <button id="generate_button" onclick="generatePassword()"> Generate password!</button>
-		
+ 	   <br></br>
+	   <button id="generate_button"> Generate password!</button>
+		<br></br>
+		<div id = 'pass'>
+		</div>
 
-		<div class="b-popup" id="popup1">
-		<div class="b-popup-content">
-			Text in Popup
-		<a href="javascript:PopUpHide()">Hide popup</a>
-		</div>
-		</div>
-	  
-	  <p>
-        Mouseware can now optionally use the diceware word list.
-        <a class="enable_diceware">Enable</a> secure diceware password
-        generation.
-      </p>
     </div>
     <footer>
     </footer>
+</div>
   </body>
 </html>
